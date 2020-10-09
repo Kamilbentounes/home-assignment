@@ -74,6 +74,9 @@ If the files are not present in the same directory, these arguments are required
 
 Since we are dealing with a detection problem, we decided to go with a pre-trained YOLO v4 (Complete and tiny version) with our custom dataset. We followed the configuration provided by the official github repo (See : [YOLO](https://github.com/AlexeyAB/darknet)). For computation limits, we choose to train the model in Google Colab following [This tutorial](https://medium.com/ai-world/how-to-train-yolov4-for-custom-objects-detection-in-google-colab-1e934b8ef685).
 
+Note that several other models for object detection can be used for this task like: Resnet, Fast RCNN, MobileNet, Faster RCNN, Mask RCNN, ...
+
+We could have tested these models, but for time limitations, we chose a Yolo model. 
 
 
 

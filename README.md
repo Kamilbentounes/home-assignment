@@ -10,6 +10,22 @@ The research team of Foodvisor is in charge of creating the detection algorithm 
 
 ## Assignment # 1
 
+### Requirements
+
+* Python 3
+
+* Os
+
+* Argparse
+
+* Json
+
+* csv
+
+* glob
+
+For the pre-process stage, no package installing is required.
+
 ### Preprocess data
 
 #### Explaination

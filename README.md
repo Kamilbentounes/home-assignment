@@ -63,7 +63,9 @@ Finaly, we generate a train.txt and test.txt files with a train:test ratio of 83
 The preprocess is different when training with keras/pytorch. We should generate one single train file which containt : 
 
 The_image_path x1,y1,x2,y2,label x1,y1,x2,y2,label ....
+
 The_image_path x1,y1,x2,y2,label x1,y1,x2,y2,label ....
+
 .
 .
 

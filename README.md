@@ -131,9 +131,9 @@ The purpose of training yolo with keras/pytorch is that they are more flexible a
 
 The annotation file to train yolo with keras/pytorch is generated with the `pre_process_pytorch_keras.py` since we use a different way to labelling.
 
-For train with pytorch, see [this github ripo](https://github.com/Tianxiaomo/pytorch-YOLOv4).
+For train with pytorch, see [this github repo](https://github.com/Tianxiaomo/pytorch-YOLOv4).
 
-For train with keras, see [this github ripo](https://github.com/qqwweee/keras-yolo3).
+For train with keras, see [this github repo](https://github.com/qqwweee/keras-yolo3).
 
 (**Tensboard loss logs are in progress**)
 
@@ -157,3 +157,8 @@ We should return the last layer output before prediction. We have to overlay thi
 
 (**In Progress**)
 
+### Improvements
+
+To improve the detection accuracy, we can augment data in order to simulate different real-life scenario and situations (blur, rotation, ...).
+
+Deploy all the model in a mobile device offering a real-time tomatoes detection from mobile device's camera (Android Studio + tensorflow lite). 

@@ -104,6 +104,24 @@ The purpose of training yolo with keras/pytorch is that they are more flexible a
 
 The annotation file to train yolo with keras/pytorch is generated with the `pre_process_pytorch_keras.py` since we use a different way to labelling.
 
+For train with pytorch, see [this github ripo](https://github.com/Tianxiaomo/pytorch-YOLOv4).
 
+For train with keras, see [this github ripo](https://github.com/qqwweee/keras-yolo3).
+
+(**Tensboard loss logs are in progress**)
+
+### Model Testing
+
+#### Darknet
+
+`./darknet detect path/to/yolo.cfg path/to/yolo.weights path/to/image_test`
+
+The output demo:
+
+Target         |  Source          |      Result        
+:-------------:|:----------------:|:-------------------:
+<img src="images/Tomates_1.png" width="250"> |  <img src="images/Tomates_2.png" width="250"> 
+<img src="images/Tomates_3.png" width="250"> |  <img src="images/Tomates_4.png" width="250">
+<img src="images/Tomates_5.png" width="250">
 
 

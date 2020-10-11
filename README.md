@@ -118,10 +118,6 @@ For train with keras, see [this github ripo](https://github.com/qqwweee/keras-yo
 
 The output demo:
 
-    Output     |     Darknet        |        
-:-------------:|:----------------:|
-<img src="images/Tomates_1.png" width="250"> |  <img src="images/Tomates_2.png" width="250"> 
-<img src="images/Tomates_3.png" width="250"> |  <img src="images/Tomates_4.png" width="250">
-<img src="images/Tomates_5.png" width="250">
+![](images/Tomates.png)
 
 

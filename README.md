@@ -50,15 +50,28 @@ pip install -r requirements_keras.txt
 
 A preprocess phase is required in order to identify classes that we want to detect. In this case, we want to detect the presence of tomatoes traces.
 
+##### Darknet
+
 First, Tomatoes must be identified in *Label_mapping.csv*: we browse the ids labels and check in both of french and english labels if they contain "tomate" ( we deal with the case of : "Sans sauce tomate" ). We generate after this process, a list that link each id with its label (we denote by class 1: tomate and 0: by other object).
 
 Second, we generate for each image a correspeding a .txt file containing the : label, Normlized bounding box information. We count as well the number of present bouding box of each class in order to do the split as a final step.
 
 Finaly, we generate a train.txt and test.txt files with a train:test ratio of 83:17.  
 
+##### Pytorch and Keras
+
+The preprocess is different when training with keras/pytorch. We should generate one single train file which containt : 
+
+The_image_path x1,y1,x2,y2,label x1,y1,x2,y2,label ....
+The_image_path x1,y1,x2,y2,label x1,y1,x2,y2,label ....
+.
+.
+
 #### Usage
 
 **NOTE : this script must be in the same directory with label_mapping.csv, annotations_imgs.json and assignement_imgs/ to run by default. Otherwise, you can specify the pathd as arguments (check instruction below).**
+
+##### Darknet
 
 The script : "pre_process_data.py" must be run in two parts, using the following :
 
@@ -74,6 +87,14 @@ python pre_process_data.py --p 0
 
 The output of this part is : train.txt and test.txt decribed above.
 
+##### Pytorch and Keras
+
+The script : "pre_process_pytorch_keras.py" must be run with the following :
+
+```python
+python pre_process_pytorch_keras.py    
+```
+
 #### Arguments 
 
 If the files are not present in the same directory, these arguments are required so the script can work.
@@ -84,7 +105,7 @@ If the files are not present in the same directory, these arguments are required
 
 * **--csvFile (shortcut : --cp)** : path to label_mapping.csv.
 
-* **--part (shortcut: --p)** : specify the script part (1 for part 1 and 0 for part 2).
+* **--part (shortcut: --p)** : specify the script part (1 for part 1 and 0 for part 2) **only for pre_process_data.py**.
 
 ### Model Training
 

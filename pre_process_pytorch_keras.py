@@ -111,7 +111,7 @@ def start_preprocess(imageFileName, jsonFileName, csvFile):
 
 	all_data = len(files)
 	each = 0
-	print("\n\t\t\t***** Generating '.txt' files for each image ... *****")
+	print("\n\t\t\t***** Generating '.txt' files for train, valid and test ... *****")
 
 	for cpt, element in enumerate(files):							# All images
 

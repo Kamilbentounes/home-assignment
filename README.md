@@ -120,4 +120,13 @@ The output demo:
 
 ![](images/Tomates.png)
 
+#### Keras and Pytorch
+
+(**In Progress**)
+
+# Assignment 2
+
+We should return the last layer output before prediction. We have to overlay this output matrix (hitmap) on our original test image.
+
+(**In Progress**)
 

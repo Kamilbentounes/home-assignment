@@ -31,12 +31,16 @@ For Darknet, you should the instructions explained [**here**](https://github.com
 For pytorch and keras, you should install requirements.txt with the following:
 
 ```python
+git clone https://github.com/Kamilbentounes/home-assignment.git
+cd home-assignment
 pip install -r requirements_pytorch.txt
 ```
 
 Or 
 
 ```python
+git clone https://github.com/Kamilbentounes/home-assignment.git
+cd home-assignment
 pip install -r requirements_keras.txt
 ```
 

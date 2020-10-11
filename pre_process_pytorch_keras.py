@@ -88,27 +88,19 @@ def compute_center(listCoordinate):
 
 	return listCoordinate[0], listCoordinate[1], listCoordinate[0] + listCoordinate[2], listCoordinate[1] + listCoordinate[3] 
 
-def start_preprocess(imageFileName, jsonFileName, csvFile, firstPart):
+def start_preprocess(imageFileName, jsonFileName, csvFile):
 
 	"""
 	#############################################################################
 	
 		This function start all pre_process.
 
-		VERY IMPORTANT NOTE: Run this script on two parts:
-
-			The first part generate all '.txt' of each image.
-			The second part generate 'train.txt' and 'test.txt'
-
-		Because of the update time of the folder which containts all images and all
-		'.txt' recently generated with the first part. Even if files_text is put in
-		the count_elements_labels() function.
+		Run this script to generate train.txt, valid.txt and test.txt for Keras/Pytorch.
 
 		Input: 
 			- imageFileName: 	path to assignment_imgs folder
 			- jsonFileName: 	path to img_annotations.json	
-			- csvFile:			path to label_mapping.csv
-			- firstPart:		1 for runing the first part, else 0
+			- csvFile:		path to label_mapping.csv
 
 	#############################################################################
 	"""
@@ -117,63 +109,61 @@ def start_preprocess(imageFileName, jsonFileName, csvFile, firstPart):
 
 	list_id_labels = read_csv(csvFile)	
 
-	if firstPart == 1:													# Generate '.txt' files for each image
+	all_data = len(files)
+	each = 0
+	print("\n\t\t\t***** Generating '.txt' files for each image ... *****")
 
-		all_data = len(files)
-		each = 0
-		print("\n\t\t\t***** Generating '.txt' files for each image ... *****")
+	for cpt, element in enumerate(files):							# All images
 
-		for cpt, element in enumerate(files):							# All images
+		if (cpt / all_data * 100) >= each:
+			print("\n\t\t\t\t{} % ...".format(each))
+			each += 10 
 
-			if (cpt / all_data * 100) >= each:
-				print("\n\t\t\t\t{} % ...".format(each))
-				each += 10 
+		list_annotation = image_annotations[element.split("\\")[-1]]	# Get the image fileName 
+		for number, dictionary in enumerate(list_annotation):
+			size = len(list_annotation)
 
-			list_annotation = image_annotations[element.split("\\")[-1]]	# Get the image fileName 
-			for number, dictionary in enumerate(list_annotation):
-				size = len(list_annotation)
+			id_image = dictionary["id"]								# Store Image Id
 
-				id_image = dictionary["id"]								# Store Image Id
+			label = list_id_labels[id_image]						# Get label
 
-				label = list_id_labels[id_image]						# Get label
+			x_left, y_left, x_right, y_right = compute_center(dictionary["box"])	
 
-				x_left, y_left, x_right, y_right = compute_center(dictionary["box"])	
+			if cpt <= (0.95 * all_data):
 
-				if cpt <= (0.95 * all_data):
-
-					if number == 0:
-						with open("pytorch_train.txt", "a+") as file:
-							file.write(element.split("\\")[-1] + " " + str(x_left) + "," + str(y_left) + "," + str(x_right) + "," + str(y_right) + "," + str(label) + " ")
-					elif number == (size-1):
-						with open("pytorch_train.txt", "a+") as file:
-							file.write(str(x_left) + "," + str(y_left) + "," + str(x_right) + "," + str(y_right) + "," + str(label) + "\n")
-					else:
-						with open("pytorch_train.txt", "a+") as file:
-							file.write(str(x_left) + "," + str(y_left) + "," + str(x_right) + "," + str(y_right) + "," + str(label) + " ")
-
-				elif cpt <= (0.975 * all_data):
-
-					if number == 0:
-						with open("pytorch_valid.txt", "a+") as file:
-							file.write(element.split("\\")[-1] + " " + str(x_left) + "," + str(y_left) + "," + str(x_right) + "," + str(y_right) + "," + str(label) + " ")
-					elif number == (size-1):
-						with open("pytorch_valid.txt", "a+") as file:
-							file.write(str(x_left) + "," + str(y_left) + "," + str(x_right) + "," + str(y_right) + "," + str(label) + "\n")
-					else:
-						with open("pytorch_valid.txt", "a+") as file:
-							file.write(str(x_left) + "," + str(y_left) + "," + str(x_right) + "," + str(y_right) + "," + str(label) + " ")
-
+				if number == 0:
+					with open("pytorch_train.txt", "a+") as file:
+						file.write(element.split("\\")[-1] + " " + str(x_left) + "," + str(y_left) + "," + str(x_right) + "," + str(y_right) + "," + str(label) + " ")
+				elif number == (size-1):
+					with open("pytorch_train.txt", "a+") as file:
+						file.write(str(x_left) + "," + str(y_left) + "," + str(x_right) + "," + str(y_right) + "," + str(label) + "\n")
 				else:
+					with open("pytorch_train.txt", "a+") as file:
+						file.write(str(x_left) + "," + str(y_left) + "," + str(x_right) + "," + str(y_right) + "," + str(label) + " ")
 
-					if number == 0:
-						with open("pytorch_test.txt", "a+") as file:
-							file.write(element.split("\\")[-1] + " " + str(x_left) + "," + str(y_left) + "," + str(x_right) + "," + str(y_right) + "," + str(label) + " ")
-					elif number == (size-1):
-						with open("pytorch_test.txt", "a+") as file:
-							file.write(str(x_left) + "," + str(y_left) + "," + str(x_right) + "," + str(y_right) + "," + str(label) + "\n")
-					else:
-						with open("pytorch_test.txt", "a+") as file:
-							file.write(str(x_left) + "," + str(y_left) + "," + str(x_right) + "," + str(y_right) + "," + str(label) + " ")
+			elif cpt <= (0.975 * all_data):
+
+				if number == 0:
+					with open("pytorch_valid.txt", "a+") as file:
+						file.write(element.split("\\")[-1] + " " + str(x_left) + "," + str(y_left) + "," + str(x_right) + "," + str(y_right) + "," + str(label) + " ")
+				elif number == (size-1):
+					with open("pytorch_valid.txt", "a+") as file:
+						file.write(str(x_left) + "," + str(y_left) + "," + str(x_right) + "," + str(y_right) + "," + str(label) + "\n")
+				else:
+					with open("pytorch_valid.txt", "a+") as file:
+						file.write(str(x_left) + "," + str(y_left) + "," + str(x_right) + "," + str(y_right) + "," + str(label) + " ")
+
+			else:
+
+				if number == 0:
+					with open("pytorch_test.txt", "a+") as file:
+						file.write(element.split("\\")[-1] + " " + str(x_left) + "," + str(y_left) + "," + str(x_right) + "," + str(y_right) + "," + str(label) + " ")
+				elif number == (size-1):
+					with open("pytorch_test.txt", "a+") as file:
+						file.write(str(x_left) + "," + str(y_left) + "," + str(x_right) + "," + str(y_right) + "," + str(label) + "\n")
+				else:
+					with open("pytorch_test.txt", "a+") as file:
+						file.write(str(x_left) + "," + str(y_left) + "," + str(x_right) + "," + str(y_right) + "," + str(label) + " ")
 
 
 def main():
@@ -182,14 +172,10 @@ def main():
 	parser.add_argument('--assignment_imgs', '--ip', type = str, default = "assignment_imgs/", help = "The test image path")	
 	parser.add_argument('--jsonPath', '--jp', type = str, default = "img_annotations.json", help = "annotation image Json File name")
 	parser.add_argument('--csvFile', '--cp', type = str, default = "label_mapping.csv", help = "Labels csv")
-	parser.add_argument('--part', '--p', type = int, required = True, help = "Which part you xant to run")
 
-	args = parser.parse_args()
+	args = parser.parse_args() 
 
-	if (args.part != 0) and (args.part != 1):
-		raise Exception('ERROR ! The argument part must be 0 or 1') 
-
-	start_preprocess(args.assignment_imgs, args.jsonPath, args.csvFile, args.part)
+	start_preprocess(args.assignment_imgs, args.jsonPath, args.csvFile)
 	
 if __name__ == '__main__':
 	main()

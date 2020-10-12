@@ -162,3 +162,15 @@ We should return the last layer output before prediction. We have to overlay thi
 To improve the detection accuracy, we can augment data in order to simulate different real-life scenario and situations (blur, rotation, ...).
 
 Deploy all the model in a mobile device offering a real-time tomatoes detection from mobile device's camera (Android Studio + tensorflow lite). 
+
+### References
+
+* [Yolo Model](https://arxiv.org/pdf/1506.02640.pdf)
+
+* [Yolo in Keras](https://github.com/david8862/keras-YOLOv3-model-set)
+
+* [Yolo with darknet](https://github.com/AlexeyAB/darknet)
+
+* [Yolo in Pytorch](https://github.com/Tianxiaomo/pytorch-YOLOv4)
+
+
